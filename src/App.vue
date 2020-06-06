@@ -53,7 +53,7 @@ export default {
   background-position: center
 }
 .img1{
-    width: 100%;
+    width: 101%;
     height: 1200px;
     background: url('../static/image/back.jpg') center center no-repeat;
     background-size: cover;

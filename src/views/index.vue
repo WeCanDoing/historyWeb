@@ -12,16 +12,42 @@
          <div class="aline"></div>
           <span class="title">神奇动物在哪里？</span>
           <div  class="title2">————网站介绍</div>
-          <div>龙王鲸（学名：Basilosaurus，意为帝王蜥蜴），又名械齿鲸(Zeuglodon)，已经灭绝的古代海洋哺乳动物，现代鲸的近亲，是鲸类中的一种，生存于3900万至3400万年前的始新世晚期。 龙王鲸刚开始被误认为是巨大的海洋爬虫类的化石，所以被命名为帝王蜥蜴。它最早是在美国路易斯安那州被发现的，随后古生物学家从埃及与巴基斯坦发现的化石中辨认出至少存在两个其他的种。 龙王鲸最大身长为18米，体重20吨，甚至可达21米，不过那个只是疑似龙王鲸。而且拥有比现代鲸更为修长的身体。古生物学家对于它们已经退化的短小后肢非常感兴趣，因为它可以证明现代鲸鱼原先是由陆生哺乳类动物演化而来。龙王鲸也是密西西比州与阿拉巴马州的州化石。
-            龙王鲸，又称帝王蜥蜴、械齿鲸，是龙王鲸科中的一个属，被认为是现代鲸的祖先，约生活于晚始新世4500万-3600万年前，现已灭绝。目前科学研究发现它的天敌可能是鲨鱼类的鼠白鲨。龙王鲸为肉食性动物，体长(length)约为15~18米。
-械齿鲸是人们已知的原始鲸类之一，它是由陆地动物进化而来的，随后它又进一步进化为两种现代的鲸类。虽然属于鲸鱼的一种，但是械齿鲸的外貌特征却和巨大的海蛇相似，当它首次被发现时，古生物学家还曾经把它当成是爬行动物.
-龙王鲸生活在4000万年前~3400万年前，并以捕食其他鲸鱼为食。事实上，正是通过分析另一种史前鲸鱼——矛齿鲸伤痕累累的颅骨，科学家才得以评估龙王鲸的咬合力。研究人员基于矛齿鲸头骨的损伤程度，计算出这种水生捕食者可以摧毁一个超过1600公斤重的头颅 [1]
+            <div >
+              <div>
+                <h5>本网站是为了各位神话生物爱好者了解世界各地神话中的生物而建立。<br>神话生物瑰丽而奇特，<br>有的包含了远古人们对于自然的畏惧，各种情绪的化身，<br>它们往往具有奇特的外形，稀奇古怪的能力。
+                <br>我们无法妄言他们是否真实存在，<br>谨在此将各位先民口述笔录下的各种“怪物”整理成册。<br>毕竟，先人智慧我们要妥善保存。<br>最后，也请各位大拿为本网站不足，提供意见。我们将积极修改完善。</h5>
+              </div>
+              <div  class="mail">
+             <h3> 我们的邮箱:  
+              <el-button type="info" icon="el-icon-message" circle></el-button>
+              892045972@qq.com
+              </h3>
+              </div>
+              </div>
+      <!-- <el-row>
+          <el-col :span="12" >
+              <el-input type="textarea" v-model="content" :autosize="{ minRows: 20, maxRows: 80}" placeholder="请输入内容" >
+              </el-input>
+          </el-col>
+          <el-col :span="12" >
+              <div id="show-content" class="text-left">
+
+              </div>
+          </el-col>
+      </el-row> -->
+  </div>
+            <div class="block">
+            <el-image :src="QRcodeSrc">
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div>
+            </el-image>
           </div>
-        </div>
-    </div>
+</div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
     name: 'index',
     data(){
@@ -31,14 +57,37 @@ export default {
                 {id:1,idView:'./static/image/monster/lion.jpg'},
                 {id:2,idView:'./static/image/monster/snake.jpg'},
                 {id:3,idView:'./static/image/monster/tree.jpg'}            
-            ]
+            ],
+            QRcodeSrc: '/api/makeWxCode'
+            // content: '测试',
+            // converter: null
+
         };
         },
+    // watch:{
+    //      content: 'contentChanged'
+    // },
     methods: { 
+      // init(){
+      //       var showdown  = require('showdown');
+      //       var converter = new showdown.Converter();
+      //       this.converter = converter;
+      //   },
+      // contentChanged(){ 
+      //      this.init();
+      //      var html = this.converter.makeHtml(this.content);
+      //      document.getElementById('show-content').innerHTML = html;
+      //   },
       setSize:function () {
                 // 通过浏览器宽度(图片宽度)计算高度
                 this.bannerHeight = 400 / 1920 * this.screenWidth;
               },
+      //获取二维码        
+      getQRcode:function () {
+              var appId ="";
+              var secret ="ceshi";
+              this.QRcodeSrc="/api/makeWxCode?appId="+appId+"&secret="+secret;
+              }                               
             },
        mounted() {
           // 首次加载时,需要调用一次
@@ -49,15 +98,18 @@ export default {
           this.screenWidth =  window.innerWidth;
           this.setSize();
             }
+            },
+    created () {
+    //调用生成二维码
+    this.getQRcode();
     }
-}
+};
 </script>
 <style>
   .index{
-    width: 80%;
     text-align: center;
     margin-left: 142px;
-    width: 80.6%;
+    width: 80.5%;
     background-color: #fbfcff
     
   }
@@ -83,6 +135,9 @@ export default {
     font-weight: bold;
     text-align: center;
     margin-left: 300px;
+}
+.mail{
+    height: 200px;
 }
 
 </style>
